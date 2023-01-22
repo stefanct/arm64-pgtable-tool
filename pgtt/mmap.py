@@ -76,6 +76,10 @@ class MemoryMap():
                     log.debug()
                     log.debug(f"parsing line {lineno}: {line}")
 
+                    if "//" in line:
+                        idx = line.index("//")
+                        line = line[:idx].rstrip()
+
                     def abort_bad_region( msg:str, variable ) -> None:
                         """
                         Pretty-print an error message and force-exit the script.
@@ -88,6 +92,8 @@ class MemoryMap():
                     """
                     Ensure correct number of fields have been specified.
                     """
+                    if not line or line.isspace():
+                        continue
                     split_line = line.split(",")
                     if len(split_line) < 4:
                         abort_bad_region("format: incomplete", line)
