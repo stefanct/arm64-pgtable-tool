@@ -148,7 +148,7 @@ class MemoryMap():
                         memory_type = MEMORY_TYPE.rw_data
                     else:
                         memory_type = MEMORY_TYPE.code
-                    log.debug(f"{memory_type=}")
+                    log.debug(f"memory_type={memory_type}")
 
                     """
                     Check for overlap with other regions.

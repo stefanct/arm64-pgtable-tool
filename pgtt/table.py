@@ -108,7 +108,7 @@ class Table:
         """
         underflow = region.addr % self.chunk
         if underflow:
-            log.debug(f"{underflow=}, dispatching to next-level table")
+            log.debug(f"underflow={underflow}, dispatching to next-level table")
             self.prepare_next(start_idx)
             self.entries[start_idx].map(region.copy(length=(self.chunk - underflow)))
             start_idx = start_idx + 1
@@ -129,7 +129,7 @@ class Table:
         """
         overflow = (region.addr + region.length) % self.chunk
         if overflow:
-            log.debug(f"{overflow=}, dispatching to next-level table")
+            log.debug(f"overflow={overflow}, dispatching to next-level table")
             final_idx = start_idx + num_chunks - (not not underflow)
             va_base = ((region.addr + region.length) // self.chunk) * self.chunk
             self.prepare_next(final_idx, va_base)

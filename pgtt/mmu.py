@@ -20,21 +20,21 @@ from . import mmap
 Tables occupy one granule and each entry is a 64-bit descriptor.
 """
 entries_per_table = args.tg // 8
-log.debug(f"{entries_per_table=}")
+log.debug(f"entries_per_table={entries_per_table}")
 
 
 """
 Number of bits required to index each byte in a granule sized page.
 """
 block_offset_bits = int(math.log(args.tg, 2))
-log.debug(f"{block_offset_bits=}")
+log.debug(f"block_offset_bits={block_offset_bits}")
 
 
 """
 Number of bits required to index each entry in a complete table.
 """
 table_idx_bits = int(math.log(entries_per_table, 2))
-log.debug(f"{table_idx_bits=}")
+log.debug(f"table_idx_bits={table_idx_bits}")
 
 
 """
@@ -43,8 +43,8 @@ Starting level of translation.
 start_level = 3 - (args.tsz - block_offset_bits) // table_idx_bits
 if (args.tsz - block_offset_bits) % table_idx_bits == 0:
     start_level = start_level + 1
-    log.debug(f"start_level corrected as {args.tsz=} exactly fits in first table")
-log.debug(f"{start_level=}")
+    log.debug(f"start_level corrected as args.tsz={args.tsz} exactly fits in first table")
+log.debug(f"start_level={start_level}")
 
 
 def _tcr() -> str:
